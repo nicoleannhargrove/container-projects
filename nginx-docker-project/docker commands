@@ -1,0 +1,15 @@
+#Used to build the custom image
+docker build -t test .
+
+#Used to create a container from the custom image:
+docker run -d --name test -p 8080:80 test
+
+#Used to set the environment variable in a running container.
+windows 10 command:docker exec -it -e DEPLOYEDINFO=$(docker inspect -f "$env:showDEPLOYEDINFO" test) test bash
+Ubuntu 20.04 command:  sudo docker exec -it -e DEPLOYEDINFO=$(sudo docker inspect -f "$showDEPLOYEDINFO" testcontainer) testcontainer bash
+
+#Create a HTML page using echo command to display DEPLOYEDINFO environment variable
+echo -e '<html>\n<html>\n\t<body>\n\t\t<h1>The container was deployed:</h1>\n\t</body>\n</html>'$DEPLOYEDINFO > index.html 
+
+
+
